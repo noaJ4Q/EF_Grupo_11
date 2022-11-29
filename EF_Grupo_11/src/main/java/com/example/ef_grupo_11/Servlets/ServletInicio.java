@@ -61,41 +61,17 @@ public class ServletInicio extends HttpServlet {
         String action = request.getParameter("action");
         switch (action) {
             case "guardarImpresion":
-                InputStream inputStream; // input stream of the upload file
-                String idusuario = request.getParameter("id");
-                String nombre = request.getParameter("nombre");
-                String descripcion = request.getParameter("descripcion");
-                String tipo = request.getParameter("tipo");
-                String nivel = request.getParameter("nivel");
-                String zona = request.getParameter("zona");
-                Part filePart = request.getPart("foto1");
-                inputStream = filePart.getInputStream();
-                if (filePart != null) {
-                    // prints out some information for debugging
-                    System.out.println(filePart.getContentType());
 
-                    // obtains input stream of the upload file
-                    inputStream = filePart.getInputStream();
-                }
-                /*
-                usuario = daoUsuarios.buscarPorId(idusuario);
-                incidencias.setUsuario(usuario);
-                incidencias.setNombre(nombre);
-                incidencias.setDescripcion(descripcion);
-                incidencias.setDestacado(1);
-                incidencias.setTipo(tipo);
-                incidencias.setUrgencia(nivel);
-                zonaPucp = daoZonaPucp.obtenerXId(zona);
-                incidencias.setZonaPucp(zonaPucp);
-                LocalDateTime myDateObj = LocalDateTime.now();
-                DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                String formattedDate = myDateObj.format(myFormatObj);
-                incidencias.setDatetime(formattedDate);
-                incidencias.setAnonimo(0);
-                incidencias.setEstadoIncidencia("Registrado");
-                daoIncidencias.guardarIncidencias(incidencias, inputStream);
-                */
-                response.sendRedirect(request.getContextPath() + "/Inicio?action=misIncidencias");
+
+                response.sendRedirect(request.getContextPath() + "/Inicio?action=ListaServicios");
+                break;
+            case "guardarCorteLaser":
+
+                response.sendRedirect(request.getContextPath() + "/Inicio?action=ListaServicios");
+                break;
+            case "guardarEscaneo":
+
+                response.sendRedirect(request.getContextPath() + "/Inicio?action=ListaServicios");
                 break;
         }
 
