@@ -65,7 +65,7 @@ public class DaoUsuario extends DaoBase{
 
     public int registrarUsuario(Usuario usuario){
 
-        int idUsuario = Integer.parseInt(null);
+        int idUsuario = 0;
         String sql = "insert into usuarios values (?, ?, ?)";
 
         try(Connection conn = this.getConnection();

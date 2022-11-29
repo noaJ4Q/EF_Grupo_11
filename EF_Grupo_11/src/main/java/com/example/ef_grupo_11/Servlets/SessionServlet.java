@@ -85,7 +85,7 @@ public class SessionServlet extends HttpServlet {
                         u.setIdUsuario(idUsuario);
                         daoUsuario.registrarCredenciales(u, password1);
 
-                        response.sendRedirect(request.getContextPath()+"/Inicio");
+                        response.sendRedirect(request.getContextPath()+"/");
 
                     }else {
                         session = request.getSession();
