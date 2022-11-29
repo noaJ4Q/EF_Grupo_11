@@ -19,42 +19,38 @@
                 </div>
             </div>
             <div class="d-grid gap-2 col-6 mx-auto">
-                 <a href="<%=request.getContextPath()%>/Inicio?action=ListaServicios" STYLE="height: 100%"><button class="btn btn-primary" type="button" >Registrar Impresión 3D</button>
-                 </a>
-                <button class="btn btn-primary" type="button">Registrar Corte Laser</button>
-                <button class="btn btn-primary" type="button">Registrar Escaneo Digital 3D</button>
-                <nav class="navbar navbar-expand-md navbar-light bg-light">
-                    <div class="container col-10">
-                        <a class="navbar-brand">Banco del Perú</a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                            <ul class="navbar-nav">
-                                <li class="nav-item" >
-                                    <a class="nav-link "
-                                       href="<%=request.getContextPath()%>/Client">Mis Datos</a>
-                                </li>
-                                <li class="nav-item" >
-                                    <a class="nav-link"
-                                       href="<%=request.getContextPath()%>/Client?action=contratos">Mis contratos</a>
-                                </li>
-                                <li class="nav-item" >
-                                    <a class="nav-link "
-                                       href="<%=request.getContextPath()%>/Client?action=cantContratos">Contratos por Estado</a>
-                                </li>
-                                <li class="nav-item" >
-                                    <a class="nav-link"
-                                       href="<%=request.getContextPath()%>/Client?action=loss">Expected Loss máximo</a>
-                                </li>
-                                <li class="nav-item" >
-                                    <a class="nav-link"
-                                       href="<%=request.getContextPath()%>/Login?action=logout"> (Cerrar sesión)</a>
-                                </li>
-                            </ul>
+
+
+                <div class="row ">
+                    <div class="col-12">
+                        <br>
+                        <div>
+                            <a href="<%=request.getContextPath()%>/Inicio?action=registrarImpresion3D"><button class="btn btn-primary" type="button" >Registrar Impresión 3D</button>
+                            </a>
                         </div>
+
                     </div>
-            </div>
+                    <div class="col-12">
+
+                        <br>
+                        <div>
+                            <a href="<%=request.getContextPath()%>/Inicio?action=registrarCorteLaser"><button class="btn btn-primary" type="button" >Registrar Corte Laser</button>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="col-12">
+
+                        <br>
+                        <div>
+                            <a href="<%=request.getContextPath()%>/Inicio?action=registrarEscaneo3D"><button class="btn btn-primary" type="button" >Registrar Escaneo Digital 3D</button>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
