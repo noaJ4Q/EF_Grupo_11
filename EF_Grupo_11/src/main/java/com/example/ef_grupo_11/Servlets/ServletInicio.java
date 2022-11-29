@@ -11,28 +11,32 @@ public class ServletInicio extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
         String action = request.getParameter("action");
-        action = (action == null) ? "listar" : action;
+        action = (action == null) ? "registrarServicio" : action;
         RequestDispatcher requestDispatcher;
         String idIncidencia;
         HttpSession session = request.getSession();
         switch (action) {
             case "registrarImpresion3D":
-                requestDispatcher = request.getRequestDispatcher("UsuarioInicio.jsp");
+
+                requestDispatcher = request.getRequestDispatcher("RegistrarImpresion.jsp");
                 requestDispatcher.forward(request, response);
                 break;
             case "registrarCorteLaser":
-                requestDispatcher = request.getRequestDispatcher("UsuarioEditarPerfil.jsp");
+                requestDispatcher = request.getRequestDispatcher("RegistrarCorteLaser.jsp");
                 requestDispatcher.forward(request, response);
                 break;
             case "registrarEscaneo3D":
                 HttpSession sessionUsuario = request.getSession();
-                Usuarios user = (Usuarios) sessionUsuario.getAttribute("usuarioSession");
-                request.setAttribute("listaIncidenciasDestacadas", daoIncidencias.incidenciasDestXUser("" + user.getIdUsuarios() + ""));
-                requestDispatcher = request.getRequestDispatcher("UsuarioMisIncidencias.jsp");
+               // request.setAttribute("listaIncidenciasDestacadas", .incidenciasDestXUser("" + user.getIdUsuarios() + ""));
+                requestDispatcher = request.getRequestDispatcher("RegistrarEscaneo.jsp");
                 requestDispatcher.forward(request, response);
                 break;
-            case "registrarIncidencia":
-                requestDispatcher = request.getRequestDispatcher("registrarServicio.jsp");
+            case "registrarServicio":
+                requestDispatcher = request.getRequestDispatcher("RegistrarServicio.jsp");
+                requestDispatcher.forward(request, response);
+                break;
+            case "ListaServicios":
+                requestDispatcher = request.getRequestDispatcher("RegistrarServicio.jsp");
                 requestDispatcher.forward(request, response);
                 break;
             case "cerrarSesion":
@@ -42,35 +46,6 @@ public class ServletInicio extends HttpServlet {
                 requestDispatcher = request.getRequestDispatcher("index.jsp");
                 requestDispatcher.forward(request, response);
                 */
-                break;
-            case "verIncidencia":
-
-                idIncidencia = request.getParameter("id");
-                incidencia = daoIncidencias.buscarPorId(idIncidencia);
-                HttpSession sessionUsuario2 = request.getSession();
-                Usuarios user2 = (Usuarios) sessionUsuario2.getAttribute("usuarioSession");
-                comentario = daoComentarios.buscarporIdIncidencia_y_idUsuarioQueCreo(idIncidencia, String.valueOf(user2.getIdUsuarios()));
-
-
-                if (incidencia != null) { //abro el form para editar
-                    request.setAttribute("comentario2", comentario);
-                    request.setAttribute("incidencia_send_jsp", incidencia);
-                    requestDispatcher = request.getRequestDispatcher("UsuarioVerIncidencia.jsp");
-                    requestDispatcher.forward(request, response);
-                } else { //id no encontrado
-                    response.sendRedirect(request.getContextPath() + "/Inicio?action=listar");
-                }
-                break;
-
-            case "page":
-                idPage = Integer.parseInt(request.getParameter("id"));
-                setListaPaginada(daoIncidencias.paginarIncidencias(idPage));
-                request.setAttribute("listaIncidenciasPermanente", getListaPermanente());
-                request.setAttribute("listaIncidenciasPaginada", getListaPaginada());
-
-                requestDispatcher = request.getRequestDispatcher("UsuarioInicio.jsp");
-                requestDispatcher.forward(request, response);
-
                 break;
 
         }
