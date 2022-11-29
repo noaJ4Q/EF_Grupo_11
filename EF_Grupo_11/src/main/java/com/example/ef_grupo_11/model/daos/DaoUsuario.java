@@ -1,13 +1,39 @@
 package com.example.ef_grupo_11.model.daos;
 
 import com.example.ef_grupo_11.model.bean.Credenciales;
+import com.example.ef_grupo_11.model.bean.Usuario;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DaoUsuario extends DaoBase{
+
+    public Usuario buscarUsuario (int idUsuario){
+        String sql = "select * from usuarios where idUsuario = ?";
+        Usuario usuario = null;
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+
+            pstmt.setInt(1, idUsuario);
+
+            try (ResultSet rs = pstmt.executeQuery()){
+                if (rs.next()){
+
+                    usuario = new Usuario();
+
+                    usuario.setIdUsuario(rs.getInt(1));
+                    usuario.setNombre(rs.getString(2));
+                    usuario.setApellido(rs.getString(3));
+                    usuario.setCorreo(rs.getString(4));
+
+                }
+            }
+
+        }catch (SQLException e){
+            e.getStackTrace();
+        }
+
+        return usuario;
+    }
 
     public Credenciales validarIniciarSesion(String correo, String password){
 
@@ -35,6 +61,70 @@ public class DaoUsuario extends DaoBase{
             e.getStackTrace();
         }
         return credenciales;
+    }
+
+    public int registrarUsuario(Usuario usuario){
+
+        int idUsuario = Integer.parseInt(null);
+        String sql = "insert into usuarios values (?, ?, ?)";
+
+        try(Connection conn = this.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+
+            pstmt.setString(1, usuario.getNombre());
+            pstmt.setString(2, usuario.getApellido());
+            pstmt.setString(3, usuario.getCorreo());
+
+            pstmt.executeUpdate();
+
+            ResultSet rsKeys = pstmt.getGeneratedKeys();
+
+            if (rsKeys.next()){
+                idUsuario = rsKeys.getInt(1);
+            }
+
+        }catch (SQLException e){
+            e.getStackTrace();
+        }
+
+        return idUsuario;
+
+    }
+
+    public void registrarCredenciales(Usuario usuario, String password){
+        String sql = "insert into credenciales values (?, ?, sha2(?, 512))";
+
+        try(Connection conn = this.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+
+            pstmt.setInt(1, usuario.getIdUsuario());
+            pstmt.setString(2, usuario.getCorreo());
+            pstmt.setString(3, password);
+
+            pstmt.executeUpdate();
+
+        }catch (SQLException e){
+            e.getStackTrace();
+        }
+    }
+
+    public boolean validarCorreo(String correo){
+
+        String sql = "select * from usuarios where correo = ?";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()){
+
+            if (rs.next()){
+                return false;
+            }
+
+        }catch (SQLException e){
+            e.getStackTrace();
+        }
+        return true;
+
     }
 
 }

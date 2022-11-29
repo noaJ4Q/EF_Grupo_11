@@ -47,7 +47,7 @@
                                required>
                     </div>
                     <div class="mb-3">
-                        <label for="password2" class="form-label">Repite tu contraseña</label>
+                        <label for="password2" class="form-label">Repita su contraseña</label>
                         <input type="password" class="form-control border border-secondary" id="password2"
                                name="password2"
                                required>
@@ -55,11 +55,16 @@
                     <div class="mb-3">
                         <label for="tipo" class="form-label">Tipo de Usuario</label>
                         <select class="form-select" name="tipo" id="tipo">
-                            <option value="" selected>Seleccione un tipo</option>
+                            <option value="" selected disabled>Seleccione un tipo</option>
                             <option value="interno">Interno</option>
                             <option value="externo">Externo</option>
                         </select>
                     </div>
+
+                    <%if (session.getAttribute("msgError") != null){%>
+                    <p class="text-danger"><%=session.getAttribute("msgError")%></p>
+                    <%session.removeAttribute("msgError");%>
+                    <%}%>
 
                     <p class="text-secondary">Ya tienes cuenta? <a
                             href="<%=request.getContextPath()%>/?action=iniciarSesion">Iniciar sesión</a>
